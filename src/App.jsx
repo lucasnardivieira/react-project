@@ -8,21 +8,34 @@ function App() {
       id: 1,
       title: "Estudar programação",
       description: "Estudar React",
-      completed: false,
+      isCompleted: false,
     },
     {
       id: 2,
       title: "Estudar inglês",
       description: "Estudar vocabulário",
-      completed: false,
+      isCompleted: false,
     },
     {
       id: 3,
       title: "Estudar matemática",
       description: "Estudar álgebra",
-      completed: false,
+      isCompleted: false,
     },
   ]);
+
+  function onTaskClick(taskId) {
+    const newTasks = tasks.map((task) => {
+      // I need to update this task
+      if (task.id === taskId) {
+        return { ...task, isCompleted: !task.isCompleted };
+      }
+      // I don't need to update this task
+      return task;
+    });
+
+    setTasks(newTasks);
+  }
 
   return (
     <div className="w-screen h-screen bg-slate-500 flex justify-center p-6">
@@ -31,7 +44,7 @@ function App() {
           Gerenciador de tarefas
         </h1>
         <AddTask></AddTask>
-        <Tasks tasks={tasks}></Tasks>
+        <Tasks tasks={tasks} onTaskClick={onTaskClick}></Tasks>
       </div>
     </div>
   );
